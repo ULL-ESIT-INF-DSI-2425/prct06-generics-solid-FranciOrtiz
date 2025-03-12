@@ -2,10 +2,29 @@
  * Interfaz flexible con las funciones comunes entre objetos stremeables 
  */
 export interface Streamable<T> {
+  /**
+   * Función básica de añadido de otro elemento stremeable
+   * @param item Elemento a añadir en la lista
+   */
   add(item: T): void;
+  /**
+   * Función de borrado de elementos stremeables de la lista
+   * @param predicate Cualquier valor que tenga el elemento a eliminar, preferiblemente, el nombre
+   */
   remove(predicate: (item: T) => boolean): void;
+  /**
+   * Función de búsquedad de un objeto mediante su nombre
+   * @param name Nombre del elemento a buscar en el array
+   */
   searchByName(name: string): T[];
+  /**
+   * Función de búsquedad de un objeto mediante el año de su publicación
+   * @param year Año del lanzamiento del elemento T
+   */
   searchByYear(year: number): T[];
+  /**
+   * Función que se encarga de mostrar por pantalla todos los elementos del listado
+   */
   getAll(): T[];
 }
 /**

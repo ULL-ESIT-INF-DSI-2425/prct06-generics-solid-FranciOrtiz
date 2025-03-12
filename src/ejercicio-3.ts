@@ -13,72 +13,107 @@
 //    FileManager depende directamente de fs, una biblioteca externa.
 //    Lo ideal es depender de una abstracción (una interfaz) en lugar de una implementación concreta.
 
+// @ts-ignore
+const fs = require("fs");
 
-// import * as fs from "fs";
+/**
+ * Interfaz que recoge las funciones de manejo de archivos en un pc
+ */
+export interface IFileManager {
+  /**
+   * Función básica de lectura de un fichero
+   */
+  read(): string;
+  /**
+   * Función básica de escritura de un fichero
+   * @param data Datos a escribir en el fichero
+   */
+  write(data: string): void;
+}
 
-// // Definimos una interfaz para la gestión de archivos (DIP, OCP)
-// interface IFileManager {
-//   read(): string;
-//   write(data: string): void;
-// }
+/**
+ * Clase representante de los archivos locales de un pc
+ */
+export class LocalFileManager implements IFileManager {
+  /**
+   * Constructor principal de la clase
+   * @param filePath Dirección a seguir para llegar al archivo local a tratar
+   */
+  constructor(private filePath: string) {}
+  /**
+   * Función de lectura de archivos locales
+   * @returns O bien si se ha leido el archivo, o nada en caso de error 
+   */
+  public read(): string {
+    try {
+      return fs.readFileSync(this.filePath, "utf-8");
+    } catch (error) {
+      console.error("Error al leer el archivo:", error);
+      return "";
+    }
+  }
+  /**
+   * Función de escritura de un archivo local
+   * @param data Datos a escribir dentro del fichero
+   */
+  public write(data: string): void {
+    try {
+      fs.writeFileSync(this.filePath, data, "utf-8");
+      console.log("Archivo escrito exitosamente.");
+    } catch (error) {
+      console.error("Error al escribir en el archivo:", error);
+    }
+  }
+}
 
-// // Implementación de un manejador de archivos local (SRP, DIP)
-// class LocalFileManager implements IFileManager {
-//   constructor(private filePath: string) {}
+/**
+ * Clase representante de los archivos en la nube
+ */
+export class CloudFileManager implements IFileManager {
+  private cloudStorage: Map<string, string> = new Map();
+  /**
+   * Constructor principal de la clase
+   * @param filePath Camino de archivos que lleva al deseado
+   */
+  constructor(private filePath: string) {}
+  /**
+   * Función de lectura de un archivo almacenado en la nube
+   * @returns El contenido del archivo en la nube, o nada en caso de error
+   */
+  public read(): string {
+    return this.cloudStorage.get(this.filePath) || "";
+  }
+  /**
+   * Función de escritrura en un archivo en la nube
+   * @param data Datos a escribir en el archivo en la nube
+   */
+  public write(data: string): void {
+    this.cloudStorage.set(this.filePath, data);
+    console.log("Archivo guardado en la nube.");
+  }
+}
 
-//   public read(): string {
-//     try {
-//       return fs.readFileSync(this.filePath, "utf-8");
-//     } catch (error) {
-//       console.error("Error al leer el archivo:", error);
-//       return "";
-//     }
-//   }
-
-//   public write(data: string): void {
-//     try {
-//       fs.writeFileSync(this.filePath, data, "utf-8");
-//       console.log("Archivo escrito exitosamente.");
-//     } catch (error) {
-//       console.error("Error al escribir en el archivo:", error);
-//     }
-//   }
-// }
-
-// // Se podría agregar otra implementación, por ejemplo, para almacenamiento en la nube
-// class CloudFileManager implements IFileManager {
-//   private cloudStorage: Map<string, string> = new Map();
-
-//   constructor(private filePath: string) {}
-
-//   public read(): string {
-//     return this.cloudStorage.get(this.filePath) || "";
-//   }
-
-//   public write(data: string): void {
-//     this.cloudStorage.set(this.filePath, data);
-//     console.log("Archivo guardado en la nube.");
-//   }
-// }
-
-// // Cliente que usa IFileManager (DIP)
-// class FileService {
-//   constructor(private fileManager: IFileManager) {}
-
-//   public readFile(): string {
-//     return this.fileManager.read();
-//   }
-
-//   public writeFile(data: string): void {
-//     this.fileManager.write(data);
-//   }
-// }
-
-// // Uso con un archivo local
-// const localFileManager = new LocalFileManager("example.txt");
-// const fileService = new FileService(localFileManager);
-
-// // Leer y escribir archivos
-// console.log("Contenido actual:", fileService.readFile());
-// fileService.writeFile("Nuevo contenido en el archivo.");
-// console.log("Contenido actualizado:", fileService.readFile());
+/**
+ * Clase representativa de los servicios de ficheros externos
+ */
+export class FileService {
+  /**
+   * Contructor principal de la clase
+   * @param fileManager Tipo de administración de ficheros que se usa 
+   */
+  constructor(private fileManager: IFileManager) {}
+  /**
+   * Función de lectura del archivo
+   * @returns Resultado de la función read del tipo de administrador de ficheros seleccionado
+   */
+  public readFile(): string {
+    return this.fileManager.read();
+  }
+  /**
+   * Función de escritura de archivo
+   * @param data Datos a escribir en el archivo
+   */
+  public writeFile(data: string): void {
+    this.fileManager.write(data);
+  }
+}

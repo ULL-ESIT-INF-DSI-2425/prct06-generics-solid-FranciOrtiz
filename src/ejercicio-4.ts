@@ -5,45 +5,60 @@
 // La clase Scanner implementaba PrintableScannable, pero no usa print().
 // Ambas clases estaban obligadas a implementar métodos innecesarios, lo que viola ISP.
 
-// interface Printable {
-//     print(): void;
-//   }
-  
-//   interface Scannable {
-//     scan(): void;
-//   }
-  
-
-//   class Printer implements Printable {
-//     print(): void {
-//       console.log("Printing...");
-//     }
-//   }
-  
-//   class Scanner implements Scannable {
-//     scan(): void {
-//       console.log("Scanning...");
-//     }
-//   }
-  
-
-//   class PrinterScanner implements Printable, Scannable {
-//     print(): void {
-//       console.log("Printing...");
-//     }
-  
-//     scan(): void {
-//       console.log("Scanning...");
-//     }
-//   }
-  
-
-//   const printer = new Printer();
-//   printer.print(); 
-  
-//   const scanner = new Scanner();
-//   scanner.scan(); 
-  
-//   const printerScanner = new PrinterScanner();
-//   printerScanner.print(); 
-//   printerScanner.scan(); 
+/**
+ * Interfaz destinada a imprimir
+ */
+export interface Printable {
+  /**
+   * Función básica de imprimir
+   */
+  print(): void;
+}
+/**
+ * Interfaz destinada al escaneo
+ */
+export interface Scannable {
+  /**
+   * Función básica de escaneo
+   */
+  scan(): void;
+}
+/**
+ * Clase de una impresora
+ */
+export class Printer implements Printable {
+  /**
+   * Función de imprimir de la impresora
+   */
+  print(): void {
+    console.log("Printing...");
+  }
+}
+/**
+ * Clase representante de una escáner
+ */
+export class Scanner implements Scannable {
+  /**
+   * Función de escaneo de un escáner
+   */
+  scan(): void {
+    console.log("Scanning...");
+  }
+}
+/**
+ * Clase reprentativa de una impresora escáner
+ */
+export class PrinterScanner implements Printable, Scannable {
+  /**
+   * Función de imprimir que tiene la improsera escáner
+   */
+  print(): void {
+    console.log("Printing...");
+  }
+  /**
+   * Función de escaner de la impresora escáner
+   */
+  scan(): void {
+    console.log("Scanning...");
+  }
+}

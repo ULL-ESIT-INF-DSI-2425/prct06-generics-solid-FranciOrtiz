@@ -83,7 +83,7 @@ export abstract class PrintableCollection<T> implements Collectable<T>, Printabl
 /**
  * Clase de coleccionables imprimibles numericos, que hereda de la clase PrintableCollection
  */
-export class NumericPrintableCollection<T> extends PrintableCollection<T> {
+export class NumericPrintableCollection extends PrintableCollection<number> {
   /**
    * Función print, de funcionamiento semejante a un toString
    */
@@ -103,7 +103,7 @@ export class NumericPrintableCollection<T> extends PrintableCollection<T> {
 /**
  * Clase de colección de items imprimibles de tipo string
  */
-export class StringPrintableCollection<T> extends PrintableCollection<T> {
+export class StringPrintableCollection extends PrintableCollection<string> {
   /**
    * Funcion print que devuelve la concatenación de cadenas separadas por comas del array
    * @returns 

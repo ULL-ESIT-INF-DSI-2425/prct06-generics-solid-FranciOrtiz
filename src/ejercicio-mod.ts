@@ -69,7 +69,7 @@ export abstract class PrintableCollection<T> implements Collectable<T>, Printabl
    */
   removeItem(index: number): T {
     let elemento_devolver: T = this.getItem(index);
-    this.items === this.items.filter((elemento) => elemento !== elemento_devolver);
+    this.items = this.items.filter((elemento) => elemento !== this.getItem(index));
     return elemento_devolver;
   }
   /**

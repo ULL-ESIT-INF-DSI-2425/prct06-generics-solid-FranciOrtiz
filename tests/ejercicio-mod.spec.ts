@@ -11,7 +11,7 @@ describe("Pruebas de la clase NumericPrintableCollection", () => {
   });
 
   test("Prueba de eliminar items en el array de números", () => {
-    Coleccion.removeItem(6);
+    expect(Coleccion.removeItem(6)).toEqual(7);
     expect(Coleccion.print()).toEqual("1,2,3,4,5,6");
   });
 
@@ -33,8 +33,8 @@ describe("Pruebas para la clase StringPrintableCollection", () => {
   });
 
   test("Prueba de eliminar items en el array de números", () => {
-    coleccion_palabras.removeItem(4);
-    expect(coleccion_palabras.print()).toEqual("hola, buenas, tardes, noches, Semana");
+    expect(coleccion_palabras.removeItem(4)).toEqual("Semana");
+    expect(coleccion_palabras.print()).toEqual("hola, buenas, tardes, noches");
   });
 
   test("Prueba de obtener un Item específico", () => {

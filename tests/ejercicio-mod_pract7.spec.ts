@@ -1,5 +1,5 @@
 import {expect, describe, test} from "vitest"
-import {Logger, Logging, accion} from "../src/ejercicio-mod_pract7.ts"
+import {Logger, Logging, accion} from "../src/ejercicio-mod_pract7.js"
 
 describe("Pruebas de funcionalidad básica de la clase Logger", () => {
   test("Creación de un objeto Logger, con una tupla específica de sucesos", () => {
@@ -74,4 +74,5 @@ describe("Pruebas de búsquedad dentro de un timeFrame", () => {
     {User:"Pepe", Accion: "Salir", Fecha_Hora: new Date(2025, 9, 31, 16, 45, 0, 0)},
     {User:"Antonio", Accion: "Salir", Fecha_Hora: new Date(2022, 9, 31, 15, 30, 0, 0)}]);
   });
+
 });

@@ -8,6 +8,7 @@
     "coverage": "vitest run --coverage --coverage.include src/ejercicio-mod_pract7.ts",
     "doc": "npx typedoc --entryPointStrategy Expand src"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",

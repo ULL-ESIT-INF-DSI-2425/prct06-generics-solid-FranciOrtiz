@@ -1,11 +1,11 @@
 {
   "name": "practica",
   "version": "1.0.0",
-  "main": "ejercicio-mod.js",
+  "main": "ejercicio-mod_pract7.js",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node dist/ejercicio-mod.js\"",
+    "start": "tsc-watch --onSuccess \"node dist/ejercicio-mod_pract7.js\"",
     "test": "vitest run",
-    "coverage": "vitest run --coverage --coverage.include src/ejercicio-mod.ts",
+    "coverage": "vitest run --coverage --coverage.include src/ejercicio-mod_pract7.ts",
     "doc": "npx typedoc --entryPointStrategy Expand src"
   },
   "keywords": [],
